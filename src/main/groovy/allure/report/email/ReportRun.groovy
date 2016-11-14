@@ -77,7 +77,7 @@ public class ReportRun extends AbstractMojo {
 
     private Map getBuild(){
         [
-            buildUrl:System.getProperty('BUILD_URL ') ? System.getProperty('BUILD_URL ') : 'local',
+            buildUrl:System.getProperty('BUILD_URL') ? System.getProperty('BUILD_URL') : 'local',
             buildNumber: System.getProperty('BUILD_NUMBER') ? System.getProperty('BUILD_NUMBER') : 'local'
         ]
     }
