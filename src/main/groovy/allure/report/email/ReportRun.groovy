@@ -46,7 +46,11 @@ public class ReportRun extends AbstractMojo {
 
             Map build = getBuild()
 
-            if(failedTests?.defects?.size() == 0 && brokenTests?.defects?.size() == 0 && build.buildNumber == 'local'){
+            if(build.buildNumber == 'local' || !to || !from || !password){
+                throw new AssertionError("")
+            }
+
+            if((failedTests?.defects?.size() == 0 && brokenTests?.defects?.size() == 0)){
                 throw new AssertionError("No failed test, exiting")
             }
 
@@ -68,7 +72,7 @@ public class ReportRun extends AbstractMojo {
             email.send(from, password, to, subject, content)
 
         }catch (AssertionError e){
-            getLog().info("No failures!!!")
+            getLog().info("")
         }catch(Exception e) {
             getLog().error("Unable to generate email: ${e.message}")
         }
