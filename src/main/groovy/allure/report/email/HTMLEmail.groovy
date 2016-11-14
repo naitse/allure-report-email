@@ -37,7 +37,10 @@ public class HTMLEmail {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            List recipients = to.split(',')
+            recipients.each {
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(it));
+            }
             message.setSubject(subject);
             message.setContent(content, "text/html");
             Transport.send(message);

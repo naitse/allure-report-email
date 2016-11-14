@@ -44,11 +44,11 @@ public class ReportRun extends AbstractMojo {
             failedTests = defects.defectsList.find{it.status == 'FAILED'}
             brokenTests = defects.defectsList.find{it.status == 'BROKEN'}
 
-            if(failedTests?.defects?.size() == 0 && brokenTests?.defects?.size() == 0){
+            Map build = getBuild()
+
+            if(failedTests?.defects?.size() == 0 && brokenTests?.defects?.size() == 0 && build.buildNumber == 'local'){
                 throw new AssertionError("No failed test, exiting")
             }
-
-            Map build = getBuild()
 
             content = buildOveral(reorderStatistics(total.statistic)) +
                     buildFeatures(features.features) +
