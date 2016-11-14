@@ -20,6 +20,9 @@ public class ReportRun extends AbstractMojo {
     @Parameter(property = 'to')
     private String to
 
+    @Parameter(property = 'send')
+    private Boolean send
+
     @Parameter(property = 'from')
     private String from
 
@@ -46,7 +49,7 @@ public class ReportRun extends AbstractMojo {
 
             Map build = getBuild()
 
-            if(build.buildNumber == 'local' || !to || !from || !password){
+            if(build.buildNumber == 'local' || !to || !from || !password || (send != null && send == false)){
                 throw new AssertionError("")
             }
 
