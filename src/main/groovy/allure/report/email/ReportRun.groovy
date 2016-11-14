@@ -95,7 +95,7 @@ public class ReportRun extends AbstractMojo {
 
     private String buildReportLink(build){
         def buildUrl = "${build.buildUrl}HTML_Report/index.html#behaviors".replace('http://','')
-        "<div style=\"height:40px\"></div></br><a href=\"https://muleion.ci.cloudbees.com/$buildUrl\" target=\"blank\">FULL REPORT LINK</a></br>"
+        "<div style=\"height:40px\"></div></br><a href=\"$buildUrl\" target=\"blank\">FULL REPORT LINK</a></br>"
     }
 
     private String buildOveral(def runStatistics){
