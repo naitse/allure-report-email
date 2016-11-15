@@ -70,7 +70,7 @@ public class ReportRun extends AbstractMojo {
                 content += buildDefectsTable(features.features, defects.defectsList, 'Suspicious Failures', 'BROKEN')
             }
 
-            String subject = "[${environment.parameter.find{it.name == 'Product'}?.value?.toUpperCase()}] - [${environment.parameter.find{it.name == 'Environment'}?.value?.toUpperCase()}] - [AUTOMATION] - Build ${build.buildNumber}"
+            String subject = "[${environment.parameter.find{it.name == 'Product'}?.value?.toUpperCase()}] - [${environment.parameter.find{it.name == 'Environment'}?.value?.toUpperCase()}] - [${environment.parameter.find{it.name == 'Suite'}?.value?.toUpperCase()}] - [AUTOMATION] - Build ${build.buildNumber}"
             HTMLEmail email = new HTMLEmail()
             email.send(from, password, to, subject, content)
 
