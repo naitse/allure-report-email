@@ -29,6 +29,9 @@ public class ReportRun extends AbstractMojo {
     @Parameter(property = 'password')
     private String password
 
+    @Parameter(property = 'ignore.broken')
+    private Boolean ignoreBroken
+
     private FileUtils fileUtils
     private Map total
     private Map features
@@ -72,7 +75,14 @@ public class ReportRun extends AbstractMojo {
 
             String subject = "[${environment.parameter.find{it.name == 'Product'}?.value?.toUpperCase()}] - [${environment.parameter.find{it.name == 'Environment'}?.value?.toUpperCase()}] - [${environment.parameter.find{it.name == 'Suite'}?.value?.toUpperCase()}] - [AUTOMATION] - Build ${build.buildNumber}"
             HTMLEmail email = new HTMLEmail()
-            email.send(from, password, to, subject, content)
+            if(ignoreBroken != null && ignoreBroken == true){
+                if(failedTests?.defects?.size() > 0){
+                    email.send(from, password, to, subject, content)
+                }
+            }else{
+                email.send(from, password, to, subject, content)
+            }
+
 
         }catch (AssertionError e){
             getLog().info("")
